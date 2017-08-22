@@ -53,16 +53,27 @@ module.exports = {
         }
       },
       //jshint
+      // {
+      //   test: /\.js$/, // 涵盖 .js 文件
+      //   enforce: "pre", // 预先加载好 jshint loader
+      //   exclude: /node_modules/, // 排除掉 node_modules 文件夹下的所有文件
+      //   use: [
+      //     {
+      //       loader: "jshint-loader"
+      //     }
+      //   ]
+      // }
+      //eslint
       {
-        test: /\.js$/, // 涵盖 .js 文件
-        enforce: "pre", // 预先加载好 jshint loader
-        exclude: /node_modules/, // 排除掉 node_modules 文件夹下的所有文件
-        use: [
-          {
-            loader: "jshint-loader"
-          }
-        ]
-      }
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loaders: [
+            'eslint-loader'
+        ],
+        query: {
+            cacheDirectory: true
+        }
+    },
     ]
   },
   plugins: [
@@ -74,23 +85,24 @@ module.exports = {
       // 可以加入模板
       // template: "./src/index.ejs"
     }),
-    new webpack.LoaderOptionsPlugin({
-      // 更多jslint的配置项
-      jshint: {
-        // 查询jslint配置项，请参考 http://www.jshint.com/docs/options/
-        // 例如
-        camelcase: true,
-        //jslint的错误信息在默认情况下会显示为warning（警告）类信息
-        //将emitErrors参数设置为true可使错误显示为error（错误）类信息
-        emitErrors: false,
-        //jshint默认情况下不会打断webpack编译
-        //如果你想在jshint出现错误时，立刻停止编译
-        //请设置failOnHint参数为true
-        failOnHint: false
+    // new webpack.LoaderOptionsPlugin({
+    //   // 更多jslint的配置项
+    //   jshint: {
+    //     // 查询jslint配置项，请参考 http://www.jshint.com/docs/options/
+    //     // 例如
+    //     esnext:true,
+    //     camelcase: true,
+    //     //jslint的错误信息在默认情况下会显示为warning（警告）类信息
+    //     //将emitErrors参数设置为true可使错误显示为error（错误）类信息
+    //     emitErrors: false,
+    //     //jshint默认情况下不会打断webpack编译
+    //     //如果你想在jshint出现错误时，立刻停止编译
+    //     //请设置failOnHint参数为true
+    //     failOnHint: false,
 
-        // 自定义报告函数 (一般不需要)
-        // reporter: function(errors) {}
-      }
-    })
+    //     // 自定义报告函数 (一般不需要)
+    //     // reporter: function(errors) {}
+    //   }
+    // })
   ]
 };
