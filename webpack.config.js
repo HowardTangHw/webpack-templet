@@ -65,15 +65,14 @@ module.exports = {
       // }
       //eslint
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loaders: [
-            'eslint-loader'
-        ],
-        query: {
-            cacheDirectory: true
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        exclude: /(node_modules|bower_components)/,
+        options: {
+          formatter: require('eslint-friendly-formatter')
         }
-    },
+      }
     ]
   },
   plugins: [
